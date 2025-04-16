@@ -36,3 +36,78 @@ body {
 .footer {
     box-shadow: 0 -0.5rem 1rem rgba(0, 0, 0, 0.05);
 }
+/* Styles généraux du formulaire */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Le conteneur principal */
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+/* Style pour les champs de formulaire */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #6c757d;
+    outline: none;
+}
+
+/* Bouton de soumission */
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style des erreurs de formulaire */
+form .form-errors {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+/* Style des cases à cocher (si nécessaire) */
+input[type="checkbox"] {
+    margin-right: 10px;
+}

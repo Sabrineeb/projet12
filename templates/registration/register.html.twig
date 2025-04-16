@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <h1 class="form-title">Register</h1>
+
+        <!-- Affichage des erreurs -->
+        <div class="form-errors">
+            {{ form_errors(registrationForm) }}
+        </div>
+
+        <!-- Formulaire de création -->
+        {{ form_start(registrationForm, {'attr': {'class': 'form'}}) }}
+        
+        <div class="form-group">
+            {{ form_row(registrationForm.email, {'attr': {'class': 'form-input'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(registrationForm.plainPassword, {
+                'label': 'Password',
+                'attr': {'class': 'form-input'}
+            }) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-checkbox'}}) }}
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-submit">Register</button>
+        </div>
+        
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}
