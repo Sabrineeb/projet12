@@ -3,67 +3,592 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mon Site Symfony{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>{% block title %}Tunisia Fashion - Élégance Tunisienne{% endblock %}</title>
     
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Bootstrap 5 + Icônes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2A2A2A;
+            --secondary-color: #E31C5F;
+            --accent-color: #FFD700;
+            --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            --text-dark: #2A2A2A;
+            --text-light: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body {
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            padding-top: 80px;
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, h5, .display-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            color: var(--secondary-color) !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .main-container {
+            background: var(--text-light);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .product-card {
+            transition: var(--transition);
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-img {
+            height: 300px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.03);
+        }
+
+        .badge-discount {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(227, 28, 95, 0.3);
+            z-index: 2;
+        }
+
+        .btn-custom {
+            background: var(--secondary-color);
+            color: var(--text-light);
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(227, 28, 95, 0.3);
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(227, 28, 95, 0.4);
+            color: var(--text-light);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            background: transparent;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--secondary-color);
+            color: var(--text-light);
+        }
+
+        .btn-auth {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        .btn-login:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-signup {
+            background: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background: transparent;
+            color: var(--secondary-color);
+        }
+
+        .hero-section {
+            background: url('{{ asset('images/fashion-bg.jpg') }}') center/cover no-repeat;
+            height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(42,42,42,0.8) 0%, rgba(227,28,95,0.4) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeInUp 1s both 0.3s;
+        }
+
+        .category-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .category-card img {
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 30px 20px 20px;
+            color: white;
+        }
+
+        .footer {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 5rem 0 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--secondary-color);
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .newsletter-input {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px 0 0 30px;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .newsletter-btn {
+            border-radius: 0 30px 30px 0;
+            background: var(--secondary-color);
+            border: none;
+            padding: 0 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+        }
+
+        .slide-in-left {
+            transform: translateX(-50px);
+        }
+
+        .slide-in-left.animated {
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            transform: translateX(50px);
+        }
+
+        .slide-in-right.animated {
+            transform: translateX(0);
+        }
+
+        .zoom-in {
+            transform: scale(0.95);
+        }
+
+        .zoom-in.animated {
+            transform: scale(1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .navbar {
+                backdrop-filter: none;
+            }
+
+            .auth-buttons {
+                margin-top: 15px;
+            }
+        }
+    </style>
 </head>
+
 <body class="d-flex flex-column h-100">
     {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('app_pages') }}">
-                <i class="fas fa-flag-checkered"></i> Tunisia Symfony
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-stars me-2"></i>TunisiaFashion
             </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {{ app.current_route == 'app_pages' ? 'active' }}" href="{{ path('app_pages') }}">
-                            <i class="fas fa-home"></i> Accueil
-                        </a>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#">Nouveautés</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ app.current_route == 'app_about' ? 'active' }}" href="{{ path('app_about') }}">
-                            <i class="fas fa-info-circle"></i> À propos
-                        </a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#">Femme</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {{ app.current_route == 'app_login' ? 'active' }}" href="{{ path('app_login') }}">
-                            <i class="fas fa-sign-in-alt"></i> Connexion
-                        </a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#">Collection</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ app.current_route == 'app_register' ? 'active' }}" href="{{ path('app_register') }}">
-                            <i class="fas fa-user-plus"></i> Inscription
-                        </a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="#">Soldes</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="{{ path('app_ajouter_produit') }}" class="btn btn-custom btn-sm">Ajouter un produit</a>
                     </li>
                 </ul>
+                
+                <div class="d-flex align-items-center">
+                    <div class="auth-buttons me-3">
+                        <a href="{{ path('app_login') }}" class="btn btn-login btn-auth">Connexion</a>
+                        <a href="{{ path('app_register') }}" class="btn btn-signup btn-auth">Inscription</a>
+                    </div>
+                    <a href="#" class="text-dark mx-2 position-relative">
+                        <i class="bi bi-search fs-5"></i>
+                    </a>
+                    <a href="#" class="text-dark mx-2 position-relative">
+                        <i class="bi bi-heart fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                    <a href="#" class="text-dark mx-2 position-relative">
+                        <i class="bi bi-cart3 fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            5
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
     {% endblock %}
 
-    <main class="flex-shrink-0">
-        <div class="container mt-5">
-            {% block body %}{% endblock %}
-        </div>
-    </main>
+    {% block body %}{% endblock %}
 
     {% block footer %}
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">&copy; {{ 'now'|date('Y') }} Tunisia Symfony. Tous droits réservés.</span>
+    <footer class="footer mt-auto">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h4 class="footer-title">
+                        <i class="bi bi-stars me-2"></i>TunisiaFashion
+                    </h4>
+                    <p class="text-muted">L'élégance tunisienne à porter de main. Découvrez nos collections exclusives inspirées des richesses culturelles de la Tunisie.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-pinterest"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-title">Boutique</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Nouveautés</a></li>
+                        <li><a href="#">Femme</a></li>
+                        <li><a href="#">Collection</a></li>
+                        <li><a href="#">Accessoires</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-title">Service client</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Contactez-nous</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Retours & Échanges</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="footer-title">Compte</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                        <li><a href="#">Suivi de commande</a></li>
+                        <li><a href="#">Liste de souhaits</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="footer-title">Newsletter</h5>
+                    <p class="text-muted">Abonnez-vous pour recevoir nos offres exclusives.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control newsletter-input" placeholder="Votre email">
+                        <button class="btn newsletter-btn">
+                            <i class="bi bi-send-fill text-white"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-muted">&copy; 2023 TunisiaFashion. Tous droits réservés</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <img src="{{ asset('images/payment-methods.png') }}" alt="Moyens de paiement" height="40" class="img-fluid">
+                </div>
+            </div>
         </div>
     </footer>
     {% endblock %}
 
+    <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementPosition < windowHeight - elementVisible) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+
+        // Run on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

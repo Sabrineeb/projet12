@@ -1,0 +1,153 @@
+{% block body %}
+<div class="purchase-container">
+    <div class="success-card">
+        <div class="checkmark-circle">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1 class="success-title">Merci pour votre achat !</h1>
+        
+        <div class="order-summary">
+            <h2>Résumé de votre commande</h2>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nom du produit</th>
+                        <th>Quantité</th>
+                        <th>Prix Unitaire</th>
+                        <th>Prix Total</th>
+                        <th>Actions</th> <!-- Ajout de la colonne pour les actions -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produit in produits %}
+                        <tr>
+                            <td>{{ produit.nom }}</td>
+                            <td>{{ produit.quantite }}</td>
+                            <td>{{ produit.prix|number_format(3, ',', ' ') }} TND</td>
+                            <td>{{ (produit.prix * produit.quantite)|number_format(3, ',', ' ') }} TND</td>
+                            <td>
+                                <a href="{{ path('produit_supprimer', {id: produit.id}) }}" class="btn btn-delete">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="next-steps text-center">
+            <p>🕓 Vous recevrez une confirmation par email sous peu</p>
+            <p>📦 Livraison estimée sous 3-5 jours ouvrables</p>
+        </div>
+
+        <div class="action-buttons text-center">
+            <a href="{{ path('produit_detail', {id: produits[0].id}) }}" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> Retour au produit
+            </a>
+            <a href="{{ path('app_home') }}" class="btn btn-home">
+                <i class="fas fa-home"></i> Page d'accueil
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .purchase-container {
+        padding: 2rem;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .success-card {
+        background-color: #fff;
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 800px;
+    }
+
+    .checkmark-circle {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .checkmark-circle i {
+        font-size: 3rem;
+        color: green;
+    }
+
+    .success-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #FF4081; /* Teinte rose */
+    }
+
+    .order-summary {
+        margin-top: 2rem;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .next-steps {
+        margin-top: 2rem;
+    }
+
+    .action-buttons {
+        margin-top: 2rem;
+    }
+
+    .action-buttons a {
+        margin: 0 1rem;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .btn-back {
+        background-color: #D32F2F; /* Teinte rouge */
+        color: #fff;
+    }
+
+    .btn-home {
+        background-color: #FF4081; /* Teinte rose */
+        color: #fff;
+    }
+
+    .btn-delete {
+        background-color: #D32F2F; /* Teinte rouge pour le bouton supprimer */
+        color: #fff;
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn-back:hover, .btn-home:hover, .btn-delete:hover {
+        opacity: 0.8;
+    }
+</style>
+
+{% endblock %}

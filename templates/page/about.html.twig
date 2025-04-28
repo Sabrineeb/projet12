@@ -1,7 +1,94 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Welcome!{% endblock %}
+
 {% block body %}
-    <img src="{{ ('https://img.freepik.com/premium-vector/e-learning-online-education-online-teacher-computer-monitor-kids-studying-home-via-internet_1207-1025.jpg') }}" alt="Mon logo">
-    <h1>built with <i class="fas fa-heart"></i> by you name </h1>
-    <a href="{{path('app_pages')}}">Page home</a>
+<style>
+    .hero-section {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+    
+    .content-box {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+    }
+    
+    .logo-image {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        margin: 2rem 0;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo-image:hover {
+        transform: scale(1.02);
+    }
+    
+    .built-with {
+        font-size: 1.5rem;
+        color: #2d3748;
+        margin: 1.5rem 0;
+    }
+    
+    .fa-heart {
+        color: #ef4444;
+        animation: pulse 1.5s infinite;
+    }
+    
+    .home-link {
+        display: inline-block;
+        background: #6366f1;
+        color: white !important;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+    
+    .home-link:hover {
+        background: #4f46e5;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+</style>
+
+<div class="hero-section">
+    <div class="content-box">
+        <img src="https://img.freepik.com/premium-vector/e-learning-online-education-online-teacher-computer-monitor-kids-studying-home-via-internet_1207-1025.jpg" 
+             alt="E-learning Illustration" 
+             class="logo-image">
+        
+        <h1 class="built-with">
+            Built with <i class="fas fa-heart"></i> by Your Name
+        </h1>
+        
+        <a href="{{path('app_pages')}}" class="home-link">
+            Explore Our Platform 
+            <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Ajout des icônes Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}

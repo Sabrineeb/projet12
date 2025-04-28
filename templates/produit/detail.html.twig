@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ produit.nom }} - Détail du produit{% endblock %}
+
+{% block body %}
+<style>
+    .product-detail {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .product-image:hover img {
+        transform: scale(1.03);
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .product-info h1 {
+        font-size: 2.8rem;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .product-info .price {
+        font-size: 2.2rem;
+        color: #e60023;
+        font-weight: 700;
+    }
+
+    .size-selection, .quantity-selection {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .size-selection button, .quantity-selection button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        background: white;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .size-selection button.selected {
+        background: black;
+        color: white;
+        border: 2px solid black;
+    }
+
+    .quantity-selection input {
+        width: 50px;
+        text-align: center;
+        font-size: 1.1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .add-to-cart, .buy-now {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .add-to-cart {
+        background: white;
+        color: black;
+        border: 2px solid black;
+    }
+
+    .add-to-cart:hover {
+        background: black;
+        color: white;
+    }
+
+    .buy-now {
+        background: black;
+        color: white;
+        margin-top: 10px;
+    }
+
+    .buy-now:hover {
+        background: #444;
+    }
+
+    @media (max-width: 768px) {
+        .product-detail {
+            grid-template-columns: 1fr;
+            padding: 20px;
+            gap: 30px;
+        }
+    }
+</style>
+
+<div class="product-detail">
+    <div class="product-image">
+        <img src="{{ produit.image }}" alt="{{ produit.nom }}">
+    </div>
+    <div class="product-info">
+        <h1>{{ produit.nom }}</h1>
+        <p>{{ produit.description }}</p>
+        <div class="price">{{ produit.prix|number_format(3, ',', ' ') }} TND</div>
+
+        <form action="{{ path('produit_acheter', {id: produit.id}) }}" method="post" id="product-form">
+            <div class="size-selection">
+                <label>Taille :</label>
+                <button type="button" class="size-btn" data-size="S">S</button>
+                <button type="button" class="size-btn" data-size="M">M</button>
+                <button type="button" class="size-btn" data-size="L">L</button>
+                <button type="button" class="size-btn" data-size="XL">XL</button>
+            </div>
+
+            <input type="hidden" name="taille" id="selected-size">
+
+            <div class="quantity-selection">
+                <label>Quantité :</label>
+                <button type="button" id="decrease">-</button>
+                <input type="text" name="quantite" id="quantity" value="1" readonly>
+                <button type="button" id="increase">+</button>
+            </div>
+
+            <button type="submit" class="add-to-cart">Ajouter au panier</button>
+            <button type="submit" class="buy-now">Acheter maintenant</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Taille sélectionnée
+    const sizeButtons = document.querySelectorAll('.size-btn');
+    const selectedSizeInput = document.getElementById('selected-size');
+
+    sizeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            sizeButtons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedSizeInput.value = btn.getAttribute('data-size');
+        });
+    });
+
+    // Quantité
+    const quantityInput = document.getElementById('quantity');
+    const increaseBtn = document.getElementById('increase');
+    const decreaseBtn = document.getElementById('decrease');
+
+    increaseBtn.addEventListener('click', () => {
+        let current = parseInt(quantityInput.value);
+        quantityInput.value = current + 1;
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+        let current = parseInt(quantityInput.value);
+        if (current > 1) {
+            quantityInput.value = current - 1;
+        }
+    });
+</script>
+{% endblock %}

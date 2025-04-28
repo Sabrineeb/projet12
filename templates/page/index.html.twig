@@ -1,7 +1,469 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Welcome!{% endblock %}
 {% block body %}
-    <img src="{{ asset('image/Tunisia.png') }}" alt="Mon logo">
-    <h1>Hello from Tunisia</h1>
-    <p>It's currently {{ 'now'|date('h:i A') }}</p>
+<!-- Hero Section with Parallax Effect -->
+<section class="hero-section position-relative overflow-hidden">
+    <div class="hero-bg position-absolute w-100 h-100"></div>
+    <div class="overlay position-absolute w-100 h-100"></div>
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-lg-8">
+                <div class="hero-content text-white animate-on-scroll fadeInDown">
+                    <span class="badge bg-secondary mb-3 animate-on-scroll fadeIn" style="animation-delay: 0.2s">Nouvelle Collection</span>
+                    <h1 class="display-3 fw-bold mb-4 animate-on-scroll fadeInDown" style="animation-delay: 0.3s">Automne/Hiver 2025</h1>
+                    <p class="lead mb-5 animate-on-scroll fadeInDown" style="animation-delay: 0.4s">Découvrez l'élégance tunisienne réinventée avec des pièces uniques inspirées de notre patrimoine</p>
+                    <div class="animate-on-scroll fadeIn" style="animation-delay: 0.5s">
+                        <a href="#" class="btn-custom me-3">Collection Femme</a>
+                        <a href="#" class="btn-outline-custom">Collection Homme</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-indicator animate-on-scroll fadeIn" style="animation-delay: 0.8s">
+        <i class="bi bi-chevron-down"></i>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-6 position-relative">
+    <div class="container">
+        <div class="text-center mb-6 animate-on-scroll fadeIn">
+            <span class="section-subtitle">Explorer nos collections</span>
+            <h2 class="section-title">Catégories populaires</h2>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4 animate-on-scroll slide-in-left">
+                <div class="category-card h-100">
+                    <div class="category-img-container overflow-hidden rounded-4">
+                        <img src="https://i.pinimg.com/736x/0b/3e/54/0b3e5492e5e344c93650777043e34f3a.jpg" 
+                             class="img-fluid w-100 category-img" alt="Mode Femme">
+                    </div>
+                    <div class="category-body text-center p-4">
+                        <h3 class="mb-3">Mode Femme</h3>
+                        <p class="text-muted mb-4">Robes élégantes, tenues modernes et pièces intemporelles</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark">Voir la collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 animate-on-scroll zoom-in">
+                <div class="category-card h-100">
+                    <div class="category-img-container overflow-hidden rounded-4">
+                        <img src="https://i.pinimg.com/736x/8f/68/65/8f6865ed63c5288158ef53fc68ef138b.jpg" 
+                             class="img-fluid w-100 category-img" alt="Mode Homme">
+                    </div>
+                    <div class="category-body text-center p-4">
+                        <h3 class="mb-3">Mode Styles</h3>
+                        <p class="text-muted mb-4">Styles sophistiqués pour l'homme moderne</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark">Voir la collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 animate-on-scroll slide-in-right">
+                <div class="category-card h-100">
+                    <div class="category-img-container overflow-hidden rounded-4">
+                        <img src="https://i.pinimg.com/736x/27/14/06/2714065e7ee6db9e5a274d04c743983d.jpg" 
+                             class="img-fluid w-100 category-img" alt="Mode Enfant">
+                    </div>
+                    <div class="category-body text-center p-4">
+                        <h3 class="mb-3">Mode Homme</h3>
+                        <p class="text-muted mb-4">Adorable et confortable pour les petits</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark">Voir la collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Product Section -->
+<section class="py-6 bg-light">
+    <div class="container">
+        <div class="text-center mb-6 animate-on-scroll fadeIn">
+            <span class="section-subtitle">Notre sélection</span>
+            <h2 class="section-title">Nouveautés</h2>
+        </div>
+        
+        <div class="row justify-content-center">
+            {% if produit %}
+                <div class="col-lg-4 col-md-6 animate-on-scroll zoom-in">
+                    <div class="product-card position-relative h-100">
+                        <div class="product-badge">Nouveau</div>
+                        <div class="product-img-container">
+                            <a href="{{ path('produit_detail', {'id': produit.id}) }}">
+                                {% if produit.image %}
+                                    <img src="{{ produit.image }}" class="img-fluid product-img" alt="{{ produit.nom }}">
+                                {% endif %}
+                            </a>
+                            <div class="product-actions">
+                                <button class="btn-action wishlist"><i class="bi bi-heart"></i></button>
+                                <button class="btn-action quick-view"><i class="bi bi-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-body p-4">
+                            <div class="product-category text-muted mb-1">Collection 2023</div>
+                            <h3 class="product-title mb-2">
+                                <a href="{{ path('produit_detail', {'id': produit.id}) }}" class="text-dark">{{ produit.nom }}</a>
+                            </h3>
+                            <div class="product-rating text-warning mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="text-muted ms-2">(24)</span>
+                            </div>
+                            <p class="product-description text-muted mb-3">{{ produit.description|slice(0, 80) ~ '...' }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="product-price">
+                                    <span class="current-price">{{ produit.prix }} TND</span>
+                                </div>
+                                <div class="product-add">
+                                    <a href="{{ path('produit_detail', {'id': produit.id}) }}" class="btn btn-dark rounded-pill px-4">
+                                        <i class="bi bi-cart-plus me-2"></i>Ajouter
+                                    </a>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+    <a href="{{ path('produit_supprimer', {'id': produit.id}) }}"
+       class="btn btn-danger btn-sm rounded-pill px-4"
+       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+        <i class="bi bi-trash me-2"></i> Supprimer
+    </a>
+</div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center animate-on-scroll fadeIn">
+                    <div class="empty-state">
+                        <i class="bi bi-box-seam display-4 text-muted mb-3"></i>
+                        <h4 class="mb-3">Aucun produit disponible</h4>
+                        <p class="text-muted mb-4">Nos nouvelles collections arrivent bientôt</p>
+                        <a href="#" class="btn-custom">S'inscrire aux notifications</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Promotion Banner -->
+<section class="py-6 bg-dark text-white position-relative overflow-hidden">
+    <div class="promo-bg position-absolute w-100 h-100"></div>
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center animate-on-scroll fadeInUp">
+                <div class="promo-icon mb-4">
+                    <i class="bi bi-truck"></i>
+                </div>
+                <h2 class="mb-4">Livraison gratuite à partir de 200 TND</h2>
+                <p class="mb-5 lead">Profitez de notre service de retour gratuit sous 30 jours et d'un échange facile en magasin</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#" class="btn-custom">Voir les conditions</a>
+                    <a href="#" class="btn-outline-custom">Nos boutiques</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-6 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0 animate-on-scroll slide-in-left">
+                <div class="newsletter-img text-center">
+                    <img src="https://i.pinimg.com/736x/9f/8d/7a/9f8d7a2a5b5e5e5e5e5e5e5e5e5e5e5.jpg" class="img-fluid rounded-4" alt="Newsletter">
+                </div>
+            </div>
+            <div class="col-lg-7 animate-on-scroll slide-in-right">
+                <div class="ps-lg-5">
+                    <span class="section-subtitle">Restez connecté</span>
+                    <h2 class="section-title mb-4">Abonnez-vous à notre newsletter</h2>
+                    <p class="mb-5">Recevez en exclusivité nos nouvelles collections, offres spéciales et invitations à des événements privés.</p>
+                    
+                    <form class="newsletter-form">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Votre adresse email" required>
+                            <button class="btn btn-dark" type="submit">S'abonner</button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="newsletterCheck" checked>
+                            <label class="form-check-label small text-muted" for="newsletterCheck">
+                                J'accepte de recevoir des emails marketing de TunisiaFashion
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Hero Section */
+    .hero-section {
+        height: 90vh;
+        min-height: 700px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .hero-bg {
+        background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+        filter: brightness(0.8);
+    }
+    
+    .overlay {
+        background: linear-gradient(135deg, rgba(42,42,42,0.8) 0%, rgba(227,28,95,0.4) 100%);
+    }
+    
+    .hero-content {
+        max-width: 600px;
+    }
+    
+    .hero-scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5rem;
+        animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+        40% {transform: translateY(-20px) translateX(-50%);}
+        60% {transform: translateY(-10px) translateX(-50%);}
+    }
+    
+    /* Sections */
+    .py-6 {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+    
+    .section-subtitle {
+        display: inline-block;
+        color: var(--secondary-color);
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--secondary-color);
+    }
+    
+    /* Category Cards */
+    .category-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .category-img-container {
+        height: 300px;
+    }
+    
+    .category-img {
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+    
+    .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .category-card:hover .category-img {
+        transform: scale(1.05);
+    }
+    
+    /* Product Card */
+    .product-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .product-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--secondary-color);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 2;
+    }
+    
+    .product-img-container {
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .product-img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+    
+    .product-actions {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        transition: var(--transition);
+    }
+    
+    .btn-action {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+        transition: var(--transition);
+    }
+    
+    .btn-action:hover {
+        background: var(--secondary-color);
+        color: white;
+    }
+    
+    .product-card:hover .product-actions {
+        opacity: 1;
+        right: 15px;
+    }
+    
+    .product-card:hover .product-img {
+        transform: scale(1.03);
+    }
+    
+    .product-body {
+        padding: 1.5rem;
+    }
+    
+    .product-title {
+        font-size: 1.2rem;
+        transition: var(--transition);
+    }
+    
+    .product-title:hover {
+        color: var(--secondary-color) !important;
+    }
+    
+    .current-price {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--secondary-color);
+    }
+    
+    /* Empty State */
+    .empty-state {
+        padding: 3rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    /* Promotion Banner */
+    .promo-bg {
+        background: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+        filter: brightness(0.4);
+    }
+    
+    .promo-icon {
+        font-size: 3rem;
+        color: var(--accent-color);
+    }
+    
+    /* Newsletter */
+    .newsletter-form .form-control {
+        padding: 12px 20px;
+        border-radius: 30px 0 0 30px;
+        border: 1px solid #eee;
+    }
+    
+    .newsletter-form .btn {
+        border-radius: 0 30px 30px 0;
+        padding: 12px 25px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+        .hero-content {
+            max-width: 100%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .product-img-container {
+            height: 250px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .hero-section {
+            min-height: 600px;
+        }
+        
+        .display-3 {
+            font-size: 2.5rem;
+        }
+    }
+</style>
+
+<script>
+    // Parallax effect for hero section
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroBg = document.querySelector('.hero-bg');
+        
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            heroBg.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+        });
+    });
+</script>
 {% endblock %}

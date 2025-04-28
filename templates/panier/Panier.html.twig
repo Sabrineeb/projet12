@@ -1,0 +1,12 @@
+{% for produit in produits %}
+    <div class="col-md-4">
+        <div class="product-card position-relative bg-white p-3 rounded-3 h-100">
+            <a href="{{ path('app_produit_detail', {'id': produit.id}) }}" class="text-decoration-none text-dark">
+                {% if produit.image %}
+                    <img src="{{ produit.image }}" class="img-fluid mb-3" alt="{{ produit.nom }}">
+                {% endif %}
+                <h5 class="fw-bold">{{ produit.nom }}</h5>
+            </a>
+        </div>
+    </div>
+{% endfor %}
